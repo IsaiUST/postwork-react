@@ -1,10 +1,10 @@
-import React from 'react'
-import Footer from './components/Footer';
-import Header from './components/Header';
-import Main from './components/Main';
-import MainCarousel from './components/MainCarousel';
-import Scripts from './components/Scripts';
-import TopBar from './components/TopBar';
+import React, { useState } from 'react'
+import Footer from './components/UI/Footer';
+import Header from './components/UI/Header';
+import Main from './components/UI/Main';
+import MainCarousel from './components/UI/MainCarousel';
+import Scripts from './components/UI/Scripts';
+import TopBar from './components/UI/TopBar';
 
 const App = () => {
 
@@ -27,14 +27,22 @@ const App = () => {
       description: 'American hot dog',
       price: 8
     }
-  ]
+  ];
+
+  const addMeal = (meal) => {
+    setCart((prevCart) => [...prevCart, meal]);
+  };
+
+  const [cart, setCart] = useState([]);
+
+
 
   return (
     <>
       <TopBar />
-      <Header />
+      <Header cart={cart}/>
       <MainCarousel />
-      <Main meals={meals} />
+      <Main meals={meals} onAddMeal={addMeal} />
       <Footer />
       <Scripts />
     </>
