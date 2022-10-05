@@ -9,7 +9,7 @@ const Meals = ({meals, onAddMealToCart}) => {
 
   return (
     <div className="row menu-container">
-        <div className="row">
+        <div className="row">          
           {meals.map((meal) => (
             <MealItem key={meal.id} meal={meal} onHandleAddMealToCart={handleAddMealToCart} />
           ))}
