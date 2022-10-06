@@ -33,18 +33,6 @@ function reducer(state, action) {
 			item.quantity += quantity;
 			return { ...state, cart: [...state.cart] };
 
-		case actions.OPEN_MODAL:
-			return {
-				...state,
-				isOpen: true,
-			};
-
-		case actions.CLOSE_MODAL:
-			return {
-				...state,
-				isOpen: false,
-			};
-
 		default:
 			throw new Error("No existe dicha acción");
 	}

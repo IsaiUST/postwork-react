@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer } from 'react'
 import Footer from './components/Styles/Footer';
 import Header from './components/UI/Header';
 import Meals from './components/UI/Meals';
@@ -14,14 +14,14 @@ import Modal from './components/UI/Modal';
 
 const App = () => {
 
-  const [cart] = useState([]);
+  // const [cart] = useState([]);
   const [state, dispatch] = useReducer(reducer, InitialState);
 
   return (
     <MenuContext.Provider value={meals}>
       <StateContext.Provider value={{ state, dispatch }}>
         <TopBar />
-        <Header cart={cart} />
+        <Header />
         <MainCarousel />
         <Modal />
         <Meals />

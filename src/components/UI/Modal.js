@@ -1,11 +1,31 @@
 import React, { useContext } from 'react';
 import StateContext from '../Contexts/StateContext';
+import actions from '../Reducers/Actios';
 
 function Modal() {
 
-    const { state } = useContext(StateContext);
+    const { state, dispatch } = useContext(StateContext);
 
-    console.log(state);
+    function increment(id) {
+        dispatch({
+            type: actions.UPDATE_MEAL,
+            payload: { id, quantity: 1 },
+        });
+    }
+
+    function decrement(id) {
+        dispatch({
+            type: actions.UPDATE_MEAL,
+            payload: { id, quantity: -1 },
+        });
+    }
+    
+    const total = state.cart.map((cartItem) => (
+             parseInt(cartItem.meal.price) * parseInt(cartItem.quantity)
+        ), 0);
+     
+    let newtotal = total.reduce((a, b) => a + b, 0);
+    console.log(newtotal);
 
     return (
         <>
@@ -18,17 +38,20 @@ function Modal() {
                         </div>
                         <div className="modal-body">
                             <div className="container text-center">
-                                <div class="row align-items-center">
-                                    <div class="col">
+                                <div className="row align-items-center">
+                                    <div className="col">
                                         Nombre
                                     </div>
-                                    <div class="col">
+                                    <div className="col">
                                         Precio
                                     </div>
-                                    <div class="col">
+                                    <div className="col">
                                         Cantidad
                                     </div>
-                                    <div class="col">
+                                    <div className="col">
+                                        SubTotal
+                                    </div>
+                                    <div className="col">
                                         Acciones
                                     </div>
                                 </div>
@@ -47,9 +70,12 @@ function Modal() {
                                             <span>x{cartItem.quantity}</span>
                                         </div>
                                         <div className="col">
+                                            <span>$ {parseInt(cartItem.meal.price) * parseInt(cartItem.quantity)}</span>
+                                        </div>
+                                        <div className="col">
                                             <div className="menu-ingredients">
-                                                <button className="btn btn-sm" style={{ background: "#ffb03b" }} type="button" id="button-addon2"><i className="bi bi-dash-circle-fill text-white"></i></button>
-                                                <button className="btn btn-sm" style={{ background: "#ffb03b" }} type="button" id="button-addon2"><i className="bi bi-plus-circle-fill text-white"></i></button>
+                                                <button className="btn btn-sm" onClick={() => decrement(cartItem.meal.id)} style={{ background: "#ffb03b" }} type="button" id="button-addon2"><i className="bi bi-dash-circle-fill text-white"></i></button>
+                                                <button className="btn btn-sm" onClick={() => increment(cartItem.meal.id)} style={{ background: "#ffb03b" }} type="button" id="button-addon2"><i className="bi bi-plus-circle-fill text-white"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -59,7 +85,7 @@ function Modal() {
                         <div className="container">
                             <div className="row">
                                 <div className="col-6">
-                                    <h1>Total: $ </h1>
+                                    <h1>Total: $ { newtotal }</h1>
                                 </div>
                             </div>
                         </div>
