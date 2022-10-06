@@ -1,10 +1,11 @@
-import React from 'react';
-import Modal from './Modal';
+import React, { useContext } from 'react';
+import StateContext from '../Contexts/StateContext';
 
-const Header = ({ cart }) => {
+function Header () {
     // console.log(cart.reduce((a, b) => parseInt(a) + parseInt(b.count), 0));
 
-    const sum = cart.reduce((a, b) => parseInt(a) + parseInt(b.count), 0);
+    const { state } = useContext(StateContext);
+    const total = state.cart.reduce((sum, item) => sum + item.quantity, 0);
 
     return (
         <>
@@ -28,12 +29,11 @@ const Header = ({ cart }) => {
                     <a href="#book-a-table" className="book-a-table-btn scrollto" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i className="bi bi-cart-plus-fill"></i> Carrito
                         <span className="badge rounded-pill bg-dark">
-                            {sum}                                                   
+                            { total }                                                   
                         </span>
                     </a>
                 </div>
             </header>
-            <Modal cart = { cart }/>
         </>
     )
 }
