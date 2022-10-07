@@ -25,8 +25,6 @@ function Modal() {
         ), 0);
      
     let newtotal = total.reduce((a, b) => a + b, 0);
-    console.log(newtotal);
-
     return (
         <>
             <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
