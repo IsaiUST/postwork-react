@@ -2,9 +2,6 @@ import actions from "./Actios";
 
 function reducer(state, action) {
 	let meal, quantity, item, id;
-
-	console.log(action);
-
 	switch (action.type) {
 		case actions.ADD_MEAL:
 			meal = action.payload.meal;
@@ -32,6 +29,12 @@ function reducer(state, action) {
 			item = state.cart.find((c) => c.meal.id === id);
 			item.quantity += quantity;
 			return { ...state, cart: [...state.cart] };
+
+		case actions.SET_MEAL:
+			return {
+				...state,
+				meal: action.payload
+			}
 
 		default:
 			throw new Error("No existe dicha acción");

@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react';
 import MenuContext from '../Contexts/MenuContext';
 import StateContext from '../Contexts/StateContext';
 import actions from '../Reducers/Actios';
-
+import {Link} from "react-router-dom"
 
 function Meals() {
 
@@ -40,7 +40,9 @@ function Meals() {
               {meals.map((item, index) => (
                 <div className="col-lg-6 menu-item filter-starters">
                   <div className="menu-content">
-                    <a href="/#">{item.name}</a>
+                  <Link to= {`/meal/${item.id}`}>
+                    <p>{item.name}</p>
+                  </Link>
                     {/* Cantidad y boton de agregar */}
                     <div className="input-group mb-3 d-flex justify-content-end" style={{ zIndex: 3 }}>
                       <input type="number" min="1" ref={(el) => (inputs.current[index] = el)} className="form-control" style={{ width: "150px", flex: "none" }} placeholder="Cantidad" aria-label="Cantidad" aria-describedby="button-addon2" />

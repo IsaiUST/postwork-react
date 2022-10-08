@@ -10,6 +10,9 @@ const actions = {
 
 	// Acción que cierra el modal del carrito
 	CLOSE_MODAL: "CLOSE_MODAL",
+
+	//Accion que seleciona un platillo
+	SET_MEAL: "SET_MEAL"
 };
 
 export default actions;

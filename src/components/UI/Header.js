@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import StateContext from '../Contexts/StateContext';
-
+import {Link} from "react-router-dom";
 function Header () {
     // console.log(cart.reduce((a, b) => parseInt(a) + parseInt(b.count), 0));
 
@@ -13,14 +13,16 @@ function Header () {
                 <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
 
                     <div className="logo me-auto">
+                    <Link to="/menu">
                         <h1><a href="index.html">Delicious</a></h1>
-
+                    </Link>
                         {/* <a href="index.html"><img src="assets/img/logo.png" alt="" className="img-fluid"/></a> */}
                     </div>
-
                     <nav id="navbar" className="navbar order-last order-lg-0">
                         <ul>
+                            <Link to = "/menu">
                             <li><a className="nav-link scrollto active" href="#hero">Home</a></li>
+                            </Link>
                             <li><a className="nav-link scrollto" href="#menu">Menu</a></li>
                         </ul>
                         <i className="bi bi-list mobile-nav-toggle"></i>

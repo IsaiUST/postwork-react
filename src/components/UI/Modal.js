@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import StateContext from '../Contexts/StateContext';
 import actions from '../Reducers/Actios';
+import {Link} from 'react-router-dom' 
 
 function Modal() {
 
@@ -88,8 +89,10 @@ function Modal() {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <Link to= "/checkout">
+                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Ordenar</button>
+                            </Link>
                         </div>
                     </div>
                 </div>

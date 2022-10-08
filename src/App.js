@@ -1,51 +1,38 @@
-import React, { useReducer, useEffect, useState} from 'react'
-import Footer from './components/Styles/Footer';
-import Header from './components/UI/Header';
-import Meals from './components/UI/Meals';
-import MainCarousel from './components/Styles/MainCarousel';
-import Scripts from './components/Styles/Scripts';
-import TopBar from './components/Styles/TopBar';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import Checkout from './components/pages/checkout';
+import Meal from './components/pages/meal';
+import Menu from "./components/pages/Menu"
+import NotFound from './components/pages/not-found';
 import StateContext from './components/Contexts/StateContext';
-import MenuContext from './components/Contexts/MenuContext';
+import React, { useReducer} from 'react';
 import reducer from './components/Reducers/Reducer';
 import InitialState from './components/Reducers/InitialState';
-import Modal from './components/UI/Modal';
-import useHttp from './components/hooks/use-http';
-
-const App = () => {
-  const BASE_URL = "https://react-http-a419f-default-rtdb.firebaseio.com/";
-  // const [cart] = useState([]);
-  const [state, dispatch] = useReducer(reducer, InitialState);
-
-  const {request} = useHttp();  
-
-  const [meals, setMeals] = useState([]);
-
-  useEffect(() => {
-    const fetchDish = async () => {
-      const url = `${BASE_URL}/dish.json`;
-      const data = await request({url})
-
-      setMeals( data || []);
-    };
-    fetchDish();
-  }, [request])
-
-
-  return (
-    <MenuContext.Provider value={meals}>
-      <StateContext.Provider value={{ state, dispatch }}>
+import Scripts from '../src/components/Styles/Scripts';
+import TopBar from '../src/components/Styles/TopBar';
+import Modal from '../src/components/UI/Modal';
+import Header from '../src/components/UI/Header';
+function App() {
+    
+    const [state, dispatch] = useReducer(reducer, InitialState);
+   
+    return(
+        <StateContext.Provider value={{ state, dispatch }}>
+        
+        <BrowserRouter>
         <TopBar />
-        <Header />
-        <MainCarousel />
         <Modal />
-        <Meals />
-        <Footer />
+        <Header />
         <Scripts />
-      </StateContext.Provider>
-    </ MenuContext.Provider>
-  );
-
+            <Routes>
+                <Route path='/menu' element={<Menu/>}/>
+                <Route path='/checkout' element={<Checkout/>}/>
+                <Route path='/meal/:index' element={<Meal/>}/>
+                <Route path='*' element={<NotFound/>}/>
+            </Routes>
+        </BrowserRouter>
+        </StateContext.Provider>
+    
+    )
 }
 
 export default App;
