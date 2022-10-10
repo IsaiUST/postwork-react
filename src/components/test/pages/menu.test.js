@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import Menu from '../../pages/Menu';
 import StateContext from "../../Contexts/StateContext";
 import { act } from "react-dom/test-utils";
+import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
-import '@testing-library/jest-dom';
 
 // Mock de toda la biblioteca "react-router-dom"
 jest.mock("react-router-dom", () => ({
@@ -55,6 +55,16 @@ describe("Menu", () => {
     
 		expect(name).toBeInTheDocument();
 		expect(description).toBeInTheDocument();
+	});
+
+	it("should change quantity of input", async () => {
+		const expectedValue = "2";
+
+		const input = screen.getByPlaceholderText("Cantidad");
+		expect(input).toBeInTheDocument();
+
+		userEvent.type(input, expectedValue);
+		expect(input).toHaveValue(2);
 	});
 });
 
