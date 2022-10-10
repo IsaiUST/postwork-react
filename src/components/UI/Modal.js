@@ -9,7 +9,7 @@ function Modal() {
     const { state, dispatch } = useContext(StateContext);
 
     const succes = () => {
-        swal("Tidy!", "Your order was ordered", "success");
+        swal("Tidy!", "Your order has been placed", "success");
     }
 
     const celarCart = () => {
