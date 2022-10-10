@@ -1,10 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import Meals from '../../UI/Meals';
-import MainCarousel from '../../Styles/MainCarousel';
-import Footer from "../../Styles/Footer";
-import MenuContext from "../../Contexts/MenuContext";
+import Menu from '../../pages/Menu';
+import StateContext from "../../Contexts/StateContext";
 import { act } from "react-dom/test-utils";
-import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
+import '@testing-library/jest-dom';
 
 // Mock de toda la biblioteca "react-router-dom"
 jest.mock("react-router-dom", () => ({
@@ -30,16 +29,15 @@ describe("Menu", () => {
 					price: 10,
 					description: "Italian Pizza",
 				},
-			]
+			],
+			ok: true
 		});
 
 		const rendered = await act(async () =>
 			render(
-				<MenuContext.Provider value={{ dispatch, state: {} }}>
-					 <MainCarousel />
-                     <Meals />
-                    <Footer /> 
-				</MenuContext.Provider>
+				<StateContext.Provider value={{ dispatch, state: {} }}>
+					 <Menu />
+				</StateContext.Provider>, {wrapper: BrowserRouter}
 			)
 		);
 
@@ -52,30 +50,12 @@ describe("Menu", () => {
 	});
 
     it("should display meals", async () => {
-        const name = await screen.findByText("Pizza");
-        const description = await screen.findByText("Italian pizza");
+		const name = await screen.findByText("Pizza");
+        const description = await screen.findByText("Italian Pizza");
     
-        expect(name).toBeInTheDocument();
-        expect(description).toBeInTheDocument();
-    });
-
-    it("should add meals to cart", async () => {
-        const button = await screen.findByRole("button");
-        expect(button).toBeInTheDocument();
-    
-        const input = container.querySelector('input[type="number"]');
-        expect(input).toBeInTheDocument();
-    
-        userEvent.click(button);
-    
-        expect(dispatch).not.toHaveBeenCalled();
-    
-        input.value = "10";
-    
-        userEvent.click(button);
-    
-        expect(dispatch).toHaveBeenCalled();
-    });
+		expect(name).toBeInTheDocument();
+		expect(description).toBeInTheDocument();
+	});
 });
 
 

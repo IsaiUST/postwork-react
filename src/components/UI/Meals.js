@@ -38,7 +38,7 @@ function Meals() {
           <div className="row menu-container">
             <div className="row">
               {meals.map((item, index) => (
-                <div className="col-lg-6 menu-item filter-starters">
+                <div className="col-lg-6 menu-item filter-starters" key={index}>
                   <div className="menu-content">
                   <Link to= {`/meal/${item.id}`}>
                     <p>{item.name}</p>
