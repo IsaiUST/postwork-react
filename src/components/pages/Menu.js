@@ -29,7 +29,7 @@ const App = () => {
         <MainCarousel />
         <Meals />
         <Footer /> 
-    </ MenuContext.Provider>
+    </MenuContext.Provider>
   );
 
 }

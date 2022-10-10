@@ -11,6 +11,7 @@ import Scripts from '../src/components/Styles/Scripts';
 import TopBar from '../src/components/Styles/TopBar';
 import Modal from '../src/components/UI/Modal';
 import Header from '../src/components/UI/Header';
+
 function App() {
     
     const [state, dispatch] = useReducer(reducer, InitialState);
