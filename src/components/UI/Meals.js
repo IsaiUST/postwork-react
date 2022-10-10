@@ -2,7 +2,8 @@ import React, { useContext, useRef } from 'react';
 import MenuContext from '../Contexts/MenuContext';
 import StateContext from '../Contexts/StateContext';
 import actions from '../Reducers/Actios';
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
+import swal from 'sweetalert';
 
 function Meals() {
 
@@ -13,15 +14,20 @@ function Meals() {
   function addMeal(index) {
 
     const meal = meals[index];
-    const input = inputs.current[index];
+    const input = inputs.current[index];    
 
-    if (input.value) {
+    if (input.value > 0) {
       dispatch({
         type: actions.ADD_MEAL,
         payload: { meal, quantity: parseInt(input.value) },
       });
 
       input.value = "";
+    } else {
+
+      swal("Oops!", "Cannot be negative values", "error");
+      input.value = "";
+
     }
   }
 

@@ -1,8 +1,12 @@
 import actions from "./Actios";
+import initialState from "./InitialState";
 
 function reducer(state, action) {
+
 	let meal, quantity, item, id;
+
 	switch (action.type) {
+
 		case actions.ADD_MEAL:
 			meal = action.payload.meal;
 			quantity = action.payload.quantity;
@@ -35,6 +39,29 @@ function reducer(state, action) {
 				...state,
 				meal: action.payload
 			}
+
+		case actions.REMOVE_ALL_FROM_CART: 
+		console.log(state)
+			return {
+				...state,
+				cart: state.filter(item => item.id !== action.payload.id),
+			};
+
+		case actions.CLEAR_CART: 
+			return initialState;
+
+		case actions.REMOVE_ONE_FROM_CART:
+
+			let itmeToDelete = state.cart.find(item => item.id === action.payload.id);
+			console.log(itmeToDelete.quantity);
+			return itmeToDelete.quantity > 1 ? {
+				...state,
+				cart: state.cart.map(item => item.id === action.payload ? 
+					{...item, quantity: quantity - 1} : item),
+			} : {
+				...state,
+				cart: state.cart.filter(item => item.id !== action.payload),
+			};
 
 		default:
 			throw new Error("No existe dicha acción");

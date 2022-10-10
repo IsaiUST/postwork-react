@@ -1,11 +1,33 @@
 import React, { useContext } from 'react';
 import StateContext from '../Contexts/StateContext';
 import actions from '../Reducers/Actios';
-import {Link} from 'react-router-dom' 
+import {Link} from 'react-router-dom';
+// import swal from 'sweetalert';
 
 function Modal() {
 
     const { state, dispatch } = useContext(StateContext);
+
+    const celarCart = () => {
+        dispatch({
+            type: actions.CLEAR_CART
+        });
+    }
+
+    const oneItem = (id, all = false) => {
+        console.log(id, all);
+        if (all) {
+            dispatch({
+                type: actions.REMOVE_ALL_FROM_CART,
+                payload: id 
+            });
+        } else {
+            dispatch({
+                type: actions.REMOVE_ONE_FROM_CART,
+                payload: id
+            });
+        }
+    }
 
     function increment(id) {
         dispatch({
@@ -26,6 +48,7 @@ function Modal() {
         ), 0);
      
     let newtotal = total.reduce((a, b) => a + b, 0);
+
     return (
         <>
             <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -74,6 +97,7 @@ function Modal() {
                                         <div className="col">
                                             <div className="menu-ingredients">
                                                 <button className="btn btn-sm" onClick={() => decrement(cartItem.meal.id)} style={{ background: "#ffb03b" }} type="button" id="button-addon2"><i className="bi bi-dash-circle-fill text-white"></i></button>
+                                                {/* <button className="btn btn-sm" onClick={() => oneItem(cartItem.meal.id, true)} style={{ background: "#ffb03b" }} type="button" id="button-addon2"><i className="bi bi-dash-circle-fill text-white"></i>ALL</button> */}
                                                 <button className="btn btn-sm" onClick={() => increment(cartItem.meal.id)} style={{ background: "#ffb03b" }} type="button" id="button-addon2"><i className="bi bi-plus-circle-fill text-white"></i></button>
                                             </div>
                                         </div>
@@ -86,9 +110,12 @@ function Modal() {
                                 <div className="col-6">
                                     <h1>Total: $ { newtotal }</h1>
                                 </div>
+                                <div className="col-6">
+                                </div>
                             </div>
                         </div>
                         <div className="modal-footer">
+                            <button type="button" className="btn btn-warning" onClick={ celarCart }>Clear</button>
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <Link to= "/checkout">
                             <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Ordenar</button>
