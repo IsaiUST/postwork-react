@@ -2,11 +2,15 @@ import React, { useContext } from 'react';
 import StateContext from '../Contexts/StateContext';
 import actions from '../Reducers/Actios';
 import {Link} from 'react-router-dom';
-// import swal from 'sweetalert';
+import swal from 'sweetalert';
 
 function Modal() {
 
     const { state, dispatch } = useContext(StateContext);
+
+    const succes = () => {
+        swal("Tidy!", "Your order was ordered", "success");
+    }
 
     const celarCart = () => {
         dispatch({
@@ -118,7 +122,7 @@ function Modal() {
                             <button type="button" className="btn btn-warning" onClick={ celarCart }>Clear</button>
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <Link to= "/checkout">
-                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Ordenar</button>
+                            <button type="button" onClick={ succes }className="btn btn-primary" data-bs-dismiss="modal">Ordenar</button>
                             </Link>
                         </div>
                     </div>
