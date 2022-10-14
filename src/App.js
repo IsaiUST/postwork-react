@@ -1,52 +1,39 @@
-import React, { useState } from 'react'
-import Footer from './components/UI/Footer';
-import Header from './components/UI/Header';
-import Main from './components/UI/Main';
-import MainCarousel from './components/UI/MainCarousel';
-import Scripts from './components/UI/Scripts';
-import TopBar from './components/UI/TopBar';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import Checkout from './components/pages/checkout';
+import Meal from './components/pages/meal';
+import Menu from "./components/pages/Menu"
+import NotFound from './components/pages/not-found';
+import StateContext from './components/Contexts/StateContext';
+import React, { useReducer} from 'react';
+import reducer from './components/Reducers/Reducer';
+import InitialState from './components/Reducers/InitialState';
+import Scripts from '../src/components/Styles/Scripts';
+import TopBar from '../src/components/Styles/TopBar';
+import Modal from '../src/components/UI/Modal';
+import Header from '../src/components/UI/Header';
 
-const App = () => {
-
-  const meals = [
-    {
-      id: 1,
-      name: 'Pizza',
-      description: 'Italian pizza',
-      price: 10
-    },
-    {
-      id: 2,
-      name: 'Hamburger',
-      description: 'American hamburger',
-      price: 15
-    },
-    {
-      id: 3,
-      name: 'Hot dog',
-      description: 'American hot dog',
-      price: 8
-    }
-  ];
-
-  const addMeal = (meal) => {
-    setCart((prevCart) => [...prevCart, meal]);
-  };
-
-  const [cart, setCart] = useState([]);
-
-
-
-  return (
-    <>
-      <TopBar />
-      <Header cart={cart}/>
-      <MainCarousel />
-      <Main meals={meals} onAddMeal={addMeal} />
-      <Footer />
-      <Scripts />
-    </>
-  );
+function App() {
+    
+    const [state, dispatch] = useReducer(reducer, InitialState);
+   
+    return(
+        <StateContext.Provider value={{ state, dispatch }}>
+        
+        <BrowserRouter>
+        <TopBar />
+        <Modal />
+        <Header />
+        <Scripts />
+            <Routes>
+                <Route path='/menu' element={<Menu/>}/>
+                <Route path='/checkout' element={<Checkout/>}/>
+                <Route path='/meal/:index' element={<Meal/>}/>
+                <Route path='*' element={<NotFound/>}/>
+            </Routes>
+        </BrowserRouter>
+        </StateContext.Provider>
+    
+    )
 }
 
-export default App
+export default App;
